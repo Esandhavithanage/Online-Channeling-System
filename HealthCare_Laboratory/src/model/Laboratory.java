@@ -119,7 +119,7 @@ public class Laboratory {
 
 	// update payment
 
-	public String UpdatePayment(String Lab_Id, String Lab_type, Date Lab_date,String Des,String PatientId,String HospitalId) {
+	public String Updatelab(String Lab_Id, String Lab_type, String Lab_date,String Des,String PatientId,String HospitalId) {
 		String output = "";
 
 		try {
@@ -129,14 +129,14 @@ public class Laboratory {
 				return "Error while connecting to the database for updating.";
 			}
 
-			String query = "UPDATE laboratoryreport SET type=?,LabDate=?,SET Desacription=?,SET patientId =?,SET hospitalId =? WHERE labId=?";
+			String query = "UPDATE laboratoryreport SET type=?,LabDate=?, Desacription=?, patientId =?, hospitalId =? WHERE labId=?";
 
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 
 			// binding values
 			
 			preparedStmt.setString(1,Lab_type);
-			preparedStmt.setDate(2, Lab_date);
+			preparedStmt.setString(2, Lab_date);
 			preparedStmt.setString(3,Des);
 			preparedStmt.setString(4,PatientId);
 			preparedStmt.setString(5,HospitalId);
@@ -157,7 +157,7 @@ public class Laboratory {
 	
 	// Delete payment details
 	
-	public String RemovePayment(String Lab_Id)  
+	public String RemoveLab(String Lab_Id)  
 	{   
 		String output = ""; 
 	 
