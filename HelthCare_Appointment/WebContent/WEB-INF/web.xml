@@ -13,7 +13,7 @@
 
 	<servlet-mapping>
 		<servlet-name>HelthCare Web Application</servlet-name>
-		<url-pattern>/HelthCare/appointment</url-pattern>
+		<url-pattern>/HelthCare/*</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
