@@ -312,16 +312,16 @@ public class Doctor {
 				}
 				// create a prepared statement
 			
-				String query = "UPDATE hospitaldoctor SET docId=?, hospitalId=?, avaliableDate=?, avaliableTime=?";
+				String query = "UPDATE hospitaldoctor SET  avaliableDate=?, avaliableTime=? WHERE docId=? AND hospitalId=?";
 			
 				PreparedStatement preparedStmt = con.prepareStatement(query);
 				// binding values
 			
-				preparedStmt.setInt(1, Integer.parseInt(D_Id));
-				preparedStmt.setInt(2, Integer.parseInt(H_Id));
-				preparedStmt.setString(3, H_avaDate);
-				preparedStmt.setString(4, H_avatime);
-			
+				
+				preparedStmt.setString(1, H_avaDate);
+				preparedStmt.setString(2, H_avatime);
+				preparedStmt.setInt(3, Integer.parseInt(D_Id));
+				preparedStmt.setInt(4, Integer.parseInt(H_Id));
 			
 				// execute the statement
 				preparedStmt.execute();
