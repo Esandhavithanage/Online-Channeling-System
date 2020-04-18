@@ -1,4 +1,4 @@
-package home;
+package com;
 
 public class hospitalService {
 
