@@ -83,7 +83,8 @@ public ArrayList<hospitalDeo> getHospitalDetails() {
 	}
 	
 	return resultSet;
-}
+	}
+
 public String updateHospitalDetails(hospitalDeo hospitalDeo) {
 	String output = "";
 
@@ -116,6 +117,33 @@ public String updateHospitalDetails(hospitalDeo hospitalDeo) {
 	}
 
 	return output;
-}
+	}
 
+public String deletehospital(hospitalDeo hospitalDeo) {
+	String output = "";
+
+	try {
+		Connection con = connect();
+
+		if (con == null) {
+			return "Error while connecting to the database for readline";
+		}
+
+		String sql = "DELETE FROM `hospital` WHERE `hospitalId` = ?";
+
+		PreparedStatement statement = con.prepareStatement(sql);
+		statement.setInt(1, hospitalDeo.getHospitalId());
+		statement.execute();
+
+		output = "Deleted successfully";
+		con.close();
+
+	} catch (SQLException e) {
+		System.out.println(e.getMessage());
+	} catch (Exception e) {
+		System.out.println(e.getMessage());
+	}
+
+	return output;
+}
 }
