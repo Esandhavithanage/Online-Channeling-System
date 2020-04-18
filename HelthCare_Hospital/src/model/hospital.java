@@ -61,8 +61,8 @@ public ArrayList<hospitalDeo> getHospitalDetails() {
 		if (con == null) {
 			return resultSet;
 		}
-
-		String query = "SELECT `hospitalId`, `hospitalName`, `hospitalAddress`, `phone`, `hospitalEmail`, `password` FROM `hospital`";
+		
+		String query = "SELECT `hospitalId`, `hospitalName`, `hospitalAddress`, `phone`, `hospitalEmail`, `password` FROM `hospital` WHERE `Status`='active' ";
 		PreparedStatement statement = con.prepareStatement(query);
 		ResultSet set = statement.executeQuery();
 
@@ -95,8 +95,7 @@ public String updateHospitalDetails(hospitalDeo hospitalDeo) {
 			return "Error while connecting to the database for readline";
 		}
 
-		String sql = "UPDATE `hospital` SET `hospitalName`= ?,`hospitalAddress`= ?,`phone`= ?,`hospitalEmail`= ?,`password`= ? WHERE `hospitalId` = ?";
-
+		String sql = "UPDATE `hospital` SET `hospitalName`= ?,`hospitalAddress`= ?,`phone`= ?,`hospitalEmail`= ?,`password`= ? WHERE `hospitalId` = ? AND `Status`= 'active'";
 		PreparedStatement statement = con.prepareStatement(sql);
 
 		statement.setString(1,hospitalDeo.getHospitalName());
@@ -128,11 +127,12 @@ public String deletehospital(hospitalDeo hospitalDeo) {
 		if (con == null) {
 			return "Error while connecting to the database for readline";
 		}
-
-		String sql = "DELETE FROM `hospital` WHERE `hospitalId` = ?";
+		
+		String sql = "UPDATE `hospital` SET `Status`= ? WHERE `hospitalId`= ?";
 
 		PreparedStatement statement = con.prepareStatement(sql);
-		statement.setInt(1, hospitalDeo.getHospitalId());
+		statement.setString(1,"Deleted");
+		statement.setInt(2, hospitalDeo.getHospitalId());
 		statement.execute();
 
 		output = "Deleted successfully";
