@@ -100,7 +100,7 @@ public String updateHospitalDetails(hospitalDeo hospitalDeo) {
 		PreparedStatement statement = con.prepareStatement(sql);
 
 		statement.setString(1,hospitalDeo.getHospitalName());
-		statement.setString(2, hospitalDeo.getHospitalAddress());
+		statement.setString(2,hospitalDeo.getHospitalAddress());
 		statement.setString(3,hospitalDeo.getPhone());
 		statement.setString(4,hospitalDeo.getHospitalEmail());
 		statement.setString(5,hospitalDeo.getPassword());
