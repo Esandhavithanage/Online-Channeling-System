@@ -83,7 +83,7 @@ public class Doctor {
 		   		+"</th><th>Update</th>"
 		   		+ "<th>Remove</th></tr>"; 
 		 
-		   String query = "select * from doctor";
+		   String query = "select * from doctor WHERE ststus = 'active' ";
 		   
 		   
 		   Statement stmt = con.createStatement();    
