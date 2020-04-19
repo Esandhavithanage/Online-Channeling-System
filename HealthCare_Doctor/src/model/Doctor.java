@@ -273,7 +273,7 @@ public class Doctor {
 			   String D_Id = Integer.toString(rs.getInt("docId"));     
 			   String H_Id = Integer.toString(rs.getInt("hospitalId"));     
 			   String H_avaDate = rs.getString("avaliableDate");     
-			   String H_avatime = rs.getString("avaliableTime");     
+				String H_avatime = rs.getString("avaliableTime");     
 			  
 			  
 		    // Add into the html table

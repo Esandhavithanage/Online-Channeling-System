@@ -27,6 +27,8 @@ import org.jsoup.nodes.Document;
 public class DoctorService {
 	Doctor DocObj = new Doctor();
 
+	//Doctor/Doctors GET method
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
@@ -34,6 +36,8 @@ public class DoctorService {
 		return DocObj.readDoctor();
 	}
 
+	//Doctor/Doctors POST method
+	
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -55,6 +59,8 @@ public class DoctorService {
 		return output;
 	}
 
+	//Doctor/Doctors PUT method
+	
 	@PUT
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -77,6 +83,7 @@ public class DoctorService {
 		return output;
 	}
 
+	//Doctor/Doctors DELETE method
 	@DELETE
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_XML)
@@ -92,12 +99,17 @@ public class DoctorService {
 		return output;
 	}
 	
+	
+	//Doctor/Doctors/doctortimetable GET method
 	@GET
 	@Path("/doctortimetable")
 	@Produces(MediaType.TEXT_HTML)
 	public String viewdocTimeDate() {
 		return DocObj.viewdocTimeDate();
 	}	
+	
+	//Doctor/Doctors/doctortimetable POST method
+	
 	@POST
 	@Path("/doctortimetable")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -113,6 +125,8 @@ public class DoctorService {
 		String output = DocObj.AddDocTimeDate(D_Id, H_Id, H_avaDate, H_avatime);
 		return output;
 	}
+	
+	//Doctor/Doctors/doctortimetable PUT method
 	
 	@PUT
 	@Path("/doctortimetable")
