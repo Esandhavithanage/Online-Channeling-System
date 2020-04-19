@@ -61,9 +61,9 @@ public class Laboratory {
 	}
 
 	
-	// View Payment Details
+	// View Lab Details by Patient Id
 	
-	public String ViewLabDetails() {
+	public String ViewLabDetailsByPatientID(int id) {
 		String output = "";
 
 		try {
@@ -73,19 +73,24 @@ public class Laboratory {
 				return "Error while connecting to the database for reading.";
 			}
 
-			output = "<table border=\"1\"><tr><th>Lab Id</th> <th>Lab type</th><th>Lab date</th><th>Description</th><th>Patient ID</th><th>Hospital ID</th> <th>Update</th> <th>Remove</th></tr>";
+			output = "<table border=\"1\"><tr><th>Lab Id</th> <th>Lab type</th><th>Lab date</th><th>Description</th><th>hospitalNmae</th></tr>";
 
-			String query = "select * from laboratoryreport";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
+			String query = "SELECT `labId`,`type`,`LabDate`,`Desacription`,`hospital`.`hospitalNmae` " + 
+					"  FROM `laboratoryreport` INNER JOIN `hospital` " + 
+					"    ON `laboratoryreport`.`hospitalId` = `hospital`.`hospitalId` " + 
+					"     WHERE `laboratoryreport`.`patientId` = ? ";
+			PreparedStatement statement = con.prepareStatement(query);
+
+			statement.setInt(1,id);
+			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
 				String Lab_Id =Integer.toString(rs.getInt("labId"));
 				String Lab_type = rs.getString("type");
 				Date Lab_date = rs.getDate("LabDate");
 				String Des = rs.getString("Desacription");
-				String PatientId =rs.getString("patientId");
-				String HospitalId=rs.getString("hospitalId");
+				String hospitalNmae =rs.getString("hospitalNmae");
+			
 				
 
 				// add to html table
@@ -93,15 +98,12 @@ public class Laboratory {
 				output += "<td>" + Lab_type + "</td>";
 				output += "<td>" + Lab_date + "</td>";
 				output += "<td>" + Des + "</td>";
-				output += "<td>" + PatientId + "</td>";
-				output += "<td>" + HospitalId + "</td>";
+				output += "<td>" + hospitalNmae + "</td>";
+			
 				
 
 				// buttons
-				output += "<td><input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btn btn-secondary\"></td>"
-						+ "<td><form method=\"post\" action=\"Laboratory.jsp\">"
-						+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"  class=\"btn btn-danger\">"
-						+ "<input name=\"Lab_Id\" type=\"hidden\" value=\"" + Lab_Id + "\">" + "</form></td></tr>";
+				output += "</tr>";
 
 			}
 
@@ -117,6 +119,69 @@ public class Laboratory {
 		return output;
 	}
 
+	// View Lab Details by Hospital Id
+	
+	public String ViewLabDetailsByHospitalID(int id) {
+		String output = "";
+
+		try {
+			Connection con = connect();
+
+			if (con == null) {
+				return "Error while connecting to the database for reading.";
+			}
+
+			output = "<table border=\"1\"><tr><th>Lab Id</th> <th>Lab type</th><th>Lab date</th><th>Description</th><th>patientNmae</th></tr>";
+
+			String query = "SELECT `labId`,`type`,`LabDate`,`Desacription`,`patient`.`fNmae` as patientname " + 
+					"  FROM `laboratoryreport` INNER JOIN `patient` " + 
+					"    ON `laboratoryreport`.`patientId`= `patient`.`patientId` " + 
+					"     WHERE `laboratoryreport`.`hospitalId` = ?";
+			
+			PreparedStatement statement = con.prepareStatement(query);
+
+			statement.setInt(1,id);
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				String Lab_Id =Integer.toString(rs.getInt("labId"));
+				String Lab_type = rs.getString("type");
+				Date Lab_date = rs.getDate("LabDate");
+				String Des = rs.getString("Desacription");
+				String patientNmae =rs.getString("patientname");
+			
+				
+
+				// add to html table
+				output += "<tr><td>" + Lab_Id + "</td>";
+				output += "<td>" + Lab_type + "</td>";
+				output += "<td>" + Lab_date + "</td>";
+				output += "<td>" + Des + "</td>";
+				output += "<td>" + patientNmae + "</td>";
+			
+				
+
+				// buttons
+				output += "</tr>";
+
+			}
+
+			con.close();
+
+			// Complete the html table
+			output += "</table>";
+		} catch (Exception e) {
+			output = "Error while reading the Lab details.";
+			System.err.println(e.getMessage());
+		}
+
+		return output;
+	}
+
+	
+	
+	
+	
 	// update payment
 
 	public String Updatelab(String Lab_Id, String Lab_type, String Lab_date,String Des,String PatientId,String HospitalId) {

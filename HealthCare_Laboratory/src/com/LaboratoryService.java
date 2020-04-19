@@ -20,11 +20,18 @@ import org.jsoup.nodes.Document;
 public class LaboratoryService {
 	Laboratory LabObj = new Laboratory();
 
-	@GET
-	@Path("/")
+	@POST
+	@Path("/ViewLaboratoryPatient")
 	@Produces(MediaType.TEXT_HTML)
-	public String  ViewLabDetails() {
-		return LabObj.ViewLabDetails();
+	public String  ViewLabDetails(@FormParam("patientId") int PatientId) {
+		return LabObj.ViewLabDetailsByPatientID(PatientId);
+	}
+	
+	@POST
+	@Path("/ViewLaboratoryHospital")
+	@Produces(MediaType.TEXT_HTML)
+	public String  ViewLabDetailsByHospital(@FormParam("hospitalId") int HospitalId) {
+		return LabObj.ViewLabDetailsByHospitalID(HospitalId);
 	}
 	
 	@POST
