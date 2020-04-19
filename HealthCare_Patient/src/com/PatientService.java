@@ -68,11 +68,20 @@ public class PatientService {
 		String P_Id = PatientObject.get("patientId").getAsString();
 		String P_fname = PatientObject.get("fNmae").getAsString();
 		String P_lname = PatientObject.get("lName").getAsString();
-		
-		
-		System.out.println(P_Id +' '+ P_fname +' '+ P_lname);
+		String P_gender = PatientObject.get("gender").getAsString();
+		String P_age = PatientObject.get("age").getAsString();
+		String P_patientNIC = PatientObject.get("patientNIC").getAsString();
+		String P_address = PatientObject.get("address").getAsString();
+		String P_email = PatientObject.get("patientEmail").getAsString();
+		String P_password = PatientObject.get("passwod").getAsString();
+		String P_phoneNo = PatientObject.get("phoneNumber").getAsString();
 
-		String output = patientObj.updatePatient(P_Id, P_fname, P_lname);
+		
+		
+		
+		System.out.println(P_Id +' '+ P_fname +' '+ P_lname +' '+ P_gender +' '+ P_age +' '+ P_patientNIC +' '+ P_address +' '+ P_email +' '+ P_password +' '+ P_phoneNo);
+
+		String output = patientObj.updatePatient(P_Id, P_fname, P_lname,P_gender, P_age, P_patientNIC, P_address, P_email, P_password ,P_phoneNo );
 		return output;
 	}
 	

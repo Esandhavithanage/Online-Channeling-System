@@ -141,7 +141,7 @@ public class Patient {
 
 	//--------------------------Update ---------------------
 
-	public String updatePatient(String P_Id, String P_fname, String P_lname) {
+	public String updatePatient(String P_Id, String P_fname, String P_lname, String P_gender, String P_age, String P_patientNIC, String P_address, String P_email, String P_password, String P_phoneNo ) {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -150,14 +150,21 @@ public class Patient {
 			}
 			// create a prepared statement
 			
-			String query = "UPDATE patient SET  fNmae =?, lName=? "
-					+ "WHERE patientId=? AND `status` = 'active'";
+			String query = "UPDATE patient SET  fNmae =?, lName=? ,gender=?, age=?, patientNIC=?, address=?, patientEmail=?, passwod=?, phoneNumber=? "
+					+ "WHERE patientId=? AND  `status` = 'active'";
 			
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setString(1, P_fname);
 			preparedStmt.setString(2, P_lname);
-			preparedStmt.setInt(3, Integer.parseInt(P_Id));
+			preparedStmt.setString(3, P_gender);
+			preparedStmt.setInt(4, Integer.parseInt(P_age));
+			preparedStmt.setString(5, P_patientNIC);
+			preparedStmt.setString(6, P_address);
+			preparedStmt.setString(7, P_email);
+			preparedStmt.setString(8, P_password);
+			preparedStmt.setInt(9, Integer.parseInt(P_phoneNo));
+			preparedStmt.setInt(10, Integer.parseInt(P_Id));
 
 
 			
